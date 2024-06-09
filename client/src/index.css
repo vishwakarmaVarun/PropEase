@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: rgb(241, 245, 241);
+}
+
+.oauth-button {
+    background-color: #db4437;
+    color: white;
+    font-weight: medium;
+    padding: 0.75rem;
+    border: 2px solid #db4437;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.oauth-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: all 0.75s ease-in-out;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    border-radius: 50%;
+}
+
+.oauth-button:hover::before {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.oauth-button:hover {
+    background-color: transparent;
+    color: #db4437;
+}
+
+.oauth-button:active {
+    transform: scale(0.95);
+}
+
+/* listing button */
+.listing-button {
+    background-color: #303030;
+    color: white;
+    font-weight: 500;
+    padding: 0.75rem;
+    border: 2px solid #303030;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.listing-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: all 0.75s ease-in-out;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    border-radius: 50%;
+}
+
+.listing-button:hover::before {
+    transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.listing-button:hover {
+    background-color: transparent;
+    color: #303030;
+}
+
+.listing-button:active {
+    transform: scale(0.95);
+}
