@@ -27,11 +27,11 @@ const CreateListing = () => {
     type: "rent",
     offer: false,
   })
-  const [imageUploadError, setImageUploadError] = useState(false);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [showUploading, setShowUploading] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [imageUploadError, setImageUploadError] = useState(false)
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [showUploading, setShowUploading] = useState(null)
+  const [success, setSuccess] = useState(false)
 
   const handleSubmitImage = (e) => {
 
