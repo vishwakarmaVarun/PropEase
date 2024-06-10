@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo2.png";
 import { FaSearch } from "react-icons/fa";
@@ -8,6 +8,11 @@ import { useSelector } from 'react-redux';
 const Header = () => {
 
   const { currentUser } = useSelector((state) => state.user);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const handleProfileClick = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
   return (
     <header className="bg-gray-800">
@@ -43,15 +48,39 @@ const Header = () => {
             </li>
           </Link>
         </ul>
-        <Link to='/profile'>
-          {currentUser ? (
-            <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover" src={currentUser.avatar} alt="logo icon" />
-          ) : (
-            <button className="text-white bg-teal-600 hover:bg-transparent hover:text-teal-600 rounded-lg py-1 px-3 border-2 border-teal-600 font-medium transition-all hover:scale-105 ease-linear duration-200">
-              Sign In
-            </button>
+        <div className="relative">
+          <div onClick={handleProfileClick} className="cursor-pointer">
+            {currentUser ? (
+              <img
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+                src={currentUser.avatar}
+                alt="profile icon"
+              />
+            ) : (
+              <button className="text-white bg-teal-600 hover:bg-transparent hover:text-teal-600 rounded-lg py-1 px-3 border-2 border-teal-600 font-medium transition-all hover:scale-105 ease-linear duration-200">
+                Sign In
+              </button>
+            )}
+          </div>
+          {dropdownVisible && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
+              <Link
+                to="/profile"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                onClick={() => setDropdownVisible(false)}
+              >
+                Profile
+              </Link>
+              <Link
+                to="/yourlistings"
+                className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                onClick={() => setDropdownVisible(false)}
+              >
+                Your Listings
+              </Link>
+            </div>
           )}
-        </Link>
+        </div>
       </div>
     </header>
   );

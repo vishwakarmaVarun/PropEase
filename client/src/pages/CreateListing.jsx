@@ -34,6 +34,14 @@ const CreateListing = () => {
   const [success, setSuccess] = useState(false);
 
   const handleSubmitImage = (e) => {
+
+    // Check file size before uploading
+    const oversizedFiles = Array.from(file).filter(f => f.size > 2 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      setImageUploadError("One or more images exceed the 2MB size limit.");
+      return;
+    }
+
     if (file.length > 0 && file.length + formData.imageURLs.length < 7) {
       setImageUploadError(false);
       const promises = [];
@@ -146,7 +154,7 @@ const CreateListing = () => {
 
   return (
     <main className="p-3 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-semibold text-center my-6">
+      <h1 className=" text-teal-700 text-3xl sm:text-4xl md:text-5xl font-semibold text-center my-6">
         Creating Listing
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-5">
