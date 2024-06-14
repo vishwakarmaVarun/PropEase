@@ -82,9 +82,11 @@ const YourListings = () => {
                 <button onClick={() => handleDelete(listing._id)} className="text-red-500 text-sm font-semibold uppercase cursor-pointer">
                   Delete
                 </button>
-                <button className="text-green-600 text-sm font-semibold uppercase cursor-pointer">
-                  Edit
-                </button>
+                <Link to={`/updatelisting/${listing._id}`}>
+                  <button className="text-green-600 text-sm hover:underline font-semibold uppercase cursor-pointer">
+                    Edit
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
