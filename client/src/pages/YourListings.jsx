@@ -6,6 +6,7 @@ const YourListings = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -27,10 +28,35 @@ const YourListings = () => {
     fetchListings();
   }, [currentUser]);
 
+  const handleDelete = async (listingId) => {
+    try {
+      setShowListingsError(false)
+      setSuccess(false)
+      const res = await fetch(`/api/listing/deleteListing/${listingId}`, {
+        method: 'DELETE'
+      })
+
+      const data = await res.json()
+      if(res.ok){
+        setUserListings(userListings.filter(listing => listing._id !== listingId))
+        setSuccess(data)
+      } else{
+        setShowListingsError(true)
+        setSuccess(false)
+      }
+    } catch (error) {
+      setShowListingsError(true)
+      setSuccess(false)
+    }
+  }
+
   return (
     <div className="p-3 max-w-4xl mx-auto">
       {showListingsError && (
         <p className="text-red-500">Error fetching your listings. Please try again later.</p>
+      )}
+      {success && (
+        <p className="text-green-500">{success}</p>
       )}
       {userListings.length > 0 ? (
         <div>
@@ -53,7 +79,7 @@ const YourListings = () => {
                 </p>
               </Link>
               <div className="flex flex-col sm:flex-row gap-3 items-center">
-                <button className="text-red-500 text-sm font-semibold uppercase cursor-pointer">
+                <button onClick={() => handleDelete(listing._id)} className="text-red-500 text-sm font-semibold uppercase cursor-pointer">
                   Delete
                 </button>
                 <button className="text-green-600 text-sm font-semibold uppercase cursor-pointer">
