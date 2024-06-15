@@ -51,7 +51,7 @@ const UpdateListing = () => {
     }
 
     fetchListing()
-  }, [])
+  }, [params.listingId])
 
   const handleSubmitImage = () => {
 
