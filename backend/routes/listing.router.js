@@ -7,6 +7,6 @@ router.post('/create', verifyToken, createListing)
 router.delete('/deleteListing/:id', verifyToken, deleteListing)
 router.post('/updateListing/:id', verifyToken, updateListing)
 router.get('/getlisting/:id', getListing)
-router.get('/getlistings', getlistings)
+router.get('/get', getlistings)
 
 export default router

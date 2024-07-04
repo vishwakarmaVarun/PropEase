@@ -12,18 +12,6 @@ const Header = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate()
 
-  const handleProfileClick = () => {
-    setDropdownVisible(!dropdownVisible);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const urlParams = new URLSearchParams(window.location.search)
-    urlParams.set('searchTerm', searchTerm)
-    const searchQuery = urlParams.toString()
-    navigate(`/search?${searchQuery}`)
-  }
-
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
     const searchTermFromUrl = urlParams.get('searchTerm')
@@ -31,6 +19,24 @@ const Header = () => {
       setSearchTerm(searchTermFromUrl)
     }
   }, [location.search])
+
+  const handleProfileClick = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set('searchTerm', searchTerm)
+    const searchQuery = urlParams.toString()
+    navigate(`/search?${searchQuery}`)
+  }
+
+  const handleClick = () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set('searchTerm', searchTerm)
+    navigate(`/search?${urlParams.toString()}`)
+  }
 
   return (
     <header className="bg-gray-800">
@@ -50,7 +56,7 @@ const Header = () => {
             <FaSearch className="text-slate-300" />
           </button>
         </form>
-        <div className="p-3 bg-gray-600 rounded-lg md:hidden">
+        <div onClick={handleClick} className="p-3 bg-gray-600 rounded-lg md:hidden cursor-pointer">
           <FaSearch color="white" />
         </div>
         <div className="p-2 bg-gray-600 rounded-lg cursor-pointer" title="Create Listing">
