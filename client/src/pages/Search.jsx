@@ -13,7 +13,7 @@ const Search = () => {
     parking: false,
     furnished: false,
   });
-  const [sortOrder, setSortOrder] = useState("reguralPrice_desc");
+  const [sortOrder, setSortOrder] = useState("regularPrice_desc");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,16 +37,13 @@ const Search = () => {
           queryParams.append("offer", true);
         }
 
-        Object.keys(filters).forEach((key) => {
-          if (
-            filters[key] &&
-            key !== "all" &&
-            key !== selectedType &&
-            key !== "offer"
-          ) {
-            queryParams.append(key, filters[key]);
-          }
-        });
+        // Handle furnished and parking filters
+        if (filters.furnished) {
+          queryParams.append("furnished", true);
+        }
+        if (filters.parking) {
+          queryParams.append("parking", true);
+        }
 
         const response = await fetch(
           `/api/listing/get?${queryParams.toString()}`
@@ -74,18 +71,12 @@ const Search = () => {
       setFilters((prev) => ({
         ...prev,
         [id]: checked,
+        // If 'all' is checked, uncheck 'rent' and 'sell'
+        ...(id === "all" && checked ? { rent: false, sell: false } : {}),
+        // If 'rent' or 'sell' is checked, uncheck 'all'
+        ...(id === "rent" && checked ? { all: false } : {}),
+        ...(id === "sell" && checked ? { all: false } : {}),
       }));
-
-      // Handle type checkboxes to ensure only one is selected
-      if (id === "rent" || id === "sell" || id === "offer") {
-        setFilters((prev) => ({
-          ...prev,
-          all: false,
-          rent: id === "rent" ? true : false,
-          sell: id === "sell" ? true : false,
-          offer: id === "offer" ? true : false,
-        }));
-      }
     } else if (id === "searchTerm") {
       setSearchTerm(value);
     } else if (id === "sort_order") {
@@ -155,8 +146,8 @@ const Search = () => {
               onChange={handleInputChange}
               className="border rounded-lg p-3"
             >
-              <option value="reguralPrice_desc">Price high to low</option>
-              <option value="reguralPrice_asc">Price low to high</option>
+              <option value="regularPrice_desc">Price high to low</option>
+              <option value="regularPrice_asc">Price low to high</option>
               <option value="created_at_desc">Latest</option>
               <option value="created_at_asc">Oldest</option>
             </select>

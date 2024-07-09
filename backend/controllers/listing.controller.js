@@ -65,12 +65,11 @@ export const getListing = async (req, res, next) => {
 
 export const getlistings = async (req, res, next) => {
   try {
+
     // Destructure query parameters from req.query
     const {
       searchTerm,
       type,
-      rent,
-      sell,
       offer,
       parking,
       furnished,
@@ -107,9 +106,9 @@ export const getlistings = async (req, res, next) => {
 
     // Handle sorting based on sortOrder
     let sortOption = {};
-    if (sortOrder === "reguralPrice_desc") {
+    if (sortOrder === "regularPrice_desc") {
       sortOption = { regularPrice: -1 };
-    } else if (sortOrder === "reguralPrice_asc") {
+    } else if (sortOrder === "regularPrice_asc") {
       sortOption = { regularPrice: 1 };
     } else if (sortOrder === "created_at_desc") {
       sortOption = { createdAt: -1 };
@@ -124,6 +123,7 @@ export const getlistings = async (req, res, next) => {
 
     res.status(200).json({ listings });
   } catch (error) {
-    next(error)
+    next(error);
   }
 };
+

@@ -32,7 +32,7 @@ const listingSchema = new mongoose.Schema({
     furnished: {
         type: Boolean,
         required: true
-    },
+    },  
     parking: {
         type: Boolean,
         required: true
